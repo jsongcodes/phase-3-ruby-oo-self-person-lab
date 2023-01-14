@@ -1,7 +1,6 @@
 class Person
     attr_accessor :bank_account
-    attr_reader :name, :happiness, :hygiene 
-
+    attr_reader :name, :happiness, :hygiene
 
     def initialize(name)
         @name = name
@@ -21,8 +20,7 @@ class Person
     end
 
     def hygiene=(num)
-        @hygiene =
-        if num > 10
+        @hygiene = if num > 10
             10
         elsif num < 0
             0
@@ -31,16 +29,24 @@ class Person
         end
     end
 
-    def clean?
-        self.hygiene > 7
+    def happy?
+        if @happiness > 7
+            true
+        else
+            false
+        end
     end
 
-    def happy?
-        self.happiness > 7
+    def clean?
+        if @hygiene > 7
+            true
+        else
+            false
+        end
     end
 
     def get_paid(amount)
-        self.bank_account += amount
+        @bank_account += amount
         "all about the benjamins"
     end
 
@@ -61,17 +67,19 @@ class Person
         "Hi #{friend.name}! It's #{self.name}. How are you?"
     end
 
-    def start_conversation(friend, topic)
-        case topic
-        when "politics"
-            [self, friend].each {|person| person.happiness -= 2}
-            "blah blah partisan blah lobbyist"
-        when "weather"
-            [self, friend].each {|person| person.happiness += 1}
-            "blah blah sun blah rain"
-        else 
-            "blah blah blah blah blah"
+    def start_conversation(person, topic)
+        if topic == "politics"
+            person.happiness -= 2
+            self.happiness -= 2
+            'blah blah partisan blah lobbyist'
+        elsif topic == "weather"
+            person.happiness += 1
+            self.happiness += 1
+            'blah blah sun blah rain'
+        else
+            'blah blah blah blah blah'
         end
     end
-end
 
+    
+end
